@@ -39,7 +39,13 @@
       "encoding": {
         "color": {
           "field": "ICSEA",
-          "type": "quantitative"
+          "type": "quantitative",
+          "scale": {
+            "type": "threshold",
+            "domain": [ 900, 1000, 1100, 1200],
+            "range": ["#ffff00", "#ffd700", "#ffaa00", "#ff8000", "#ff0000"]
+            }      
+                
         },
         "tooltip": [
           {"field": "properties.LOC_NAME", "type": "nominal", "title": "Suburb"},
