@@ -6,7 +6,7 @@
   "height": 800,
   "projection": {"type": "mercator"},
   "data": {
-    "url": "../json/vic_localities_major_cities.json",
+    "url": "https://raw.githubusercontent.com/whyamiin3168/FIT3179/main/map_week_9/json/vic_localities_major_cities.json",
     "format": {"type": "topojson", "feature": "vic_localities"}
   },
 
@@ -28,7 +28,7 @@
           "lookup": "properties.LOC_NAME",
           "from": {
             "data": {
-              "url": "https://raw.githubusercontent.com/whyamiin3168/FIT3179/main/map_week_9/data/vic_secondary_school_major_cities.csv"
+              "url": "https://raw.githubusercontent.com/whyamiin3168/FIT3179/main/map_week_9/data/10_secondary_schools_melbounre.csv"
             },
             "key": "Suburb",
             "fields": ["ICSEA"]
