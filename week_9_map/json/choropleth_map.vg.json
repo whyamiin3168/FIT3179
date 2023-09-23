@@ -2,8 +2,8 @@
         
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": "Indigenous Enrolments Percentage across Melbourne and its neighbouring suburbs",
-  "width": 1000,
-  "height": 800,
+  "width": 650,
+  "height": 750,
   "projection": {"type": "mercator"},
   "data": {
     "url": "https://raw.githubusercontent.com/whyamiin3168/FIT3179/main/week_9_map/json/vic_localities.json",
