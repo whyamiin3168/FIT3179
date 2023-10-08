@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+
+  <script type="text/javascript">
+
+    var spec1 = "json/choropleth_map.vg.json";
+    
+    vegaEmbed('#map', spec1).then(function(result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+  </script>
+  
+  <script type="text/javascript">
+  
+    var spec2 = "json/interactive_scatterplot.vg.json";
+    
+    vegaEmbed('#scatterplot', spec2).then(function(result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+  </script>
+  
+  
+  <!-- CSS file -->
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css" media="all">
+  
+</head>
+<body>
+  <div class="pure-g">
+    <div class="pure-u-1">
+        <h1>Melbourne Secondary <br>School Statistics (2022)</h1>
+        
+    </div>
+    <div class="pure-u-1-2">
+        <div id="map">
+</div>
+    </div>
+    <div class="pure-u-1-2">
+
+        <div id="scatterplot">
+
+        </div>
+    </div>
+    
+</div>
+<div class="pure-g">
+  <div class="pure-u-1-2">
+    <p>Fig 1: Indigenous enrolment tends to increase the <br>further we are from the central business district </p>
+  </div>
+  <div class="pure-u-1-2">
+      <p>Fig 2: From the ratio given, <br>most schools get one teacher at around 10 students.</p>
+    </div>
+</div> 
+   
+
+
+
+</body>
+</html>
