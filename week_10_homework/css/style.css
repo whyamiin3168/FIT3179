@@ -1,0 +1,37 @@
+/* CSS for layout */
+
+h1 {
+    text-align: left;
+    color: #527298;
+    font-size: 50px;
+	padding-left: 60px;
+}
+
+p {
+    color: #527298;
+	text-align: center;
+    font-size: 16px;
+}
+
+.pure-g {
+	display: flex; /* Use flexbox for layout */
+	flex-wrap: wrap; /* Allow wrapping to the next line if needed */
+}
+  
+.pure-u-1-2 {
+	flex: 1; /* Divide the available space into two equal parts */
+	padding: 10px; /* Add spacing between divs */
+	box-sizing: border-box; /* Include padding in the width calculation */
+}
+  
+#map, #scatterplot {
+	width: 100%; /* Make sure both divs take up the full width of their containers */
+}
+#map {
+    padding-left: 50px; /* Adjust the amount of padding as needed */
+}
+
+/* Add padding to the right visualization (#scatterplot) */
+#scatterplot {
+    padding-right: 50px; /* Adjust the amount of padding as needed */
+}

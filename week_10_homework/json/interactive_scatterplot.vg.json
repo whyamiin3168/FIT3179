@@ -1,0 +1,118 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 500,
+    "height": 600,
+    "title": ["Teacher to Student Ratio from Secondary Schools ","in Greater Melbourne Suburbs",""],
+    "data": {
+      "url": "../data/melbourne_secondary_school_profiles.csv"
+    },
+    "params": [
+      {
+        "name": "School_sector_selection",
+        "bind": {
+          "input": "select",
+          "options": [
+            null,
+            "Catholic",
+            "Government",
+            "Independent"
+          ],
+          "labels": [
+            "Show All",
+            "Catholic",
+            "Government",
+            "Independent"
+          ],
+          "name": "School Sector Selection: "
+        }
+      }
+    ],
+    "transform": [
+      {"filter": "datum.Teaching_Staff > 0"},
+      {"filter": "datum.Total_Enrolments > 0"},
+      {
+        "filter": "School_sector_selection == null || datum.School_Sector == School_sector_selection"
+      }
+    ],
+    "encoding": {
+      "x": {
+        "field": "Total_Enrolments",
+        "type": "quantitative",
+        "title": "Number of Students"
+
+
+      },
+      "y": {
+        "field": "Teaching_Staff",
+        "type": "quantitative",
+        "title": "Number of Teachers"
+
+      }
+    },
+    "layer": [
+      {
+        "mark": "circle",
+        "encoding": {
+          "color": {
+            "field": "School_Sector",
+            "type": "nominal",
+            "scale": {
+              "domain": [
+                "Catholic",
+                "Government",
+                "Independent"
+              ],
+              "range": [
+                "#FF0000",
+                "#377eb8",
+                "#FFA500"
+              ]
+            }
+          },
+          "opacity": {"value": 0.6},
+          "tooltip": [
+            {"field": "Suburb", "type": "nominal"},
+            {"field": "School_Sector", "type": "nominal"},
+            {"field": "School_Name", "type": "nominal"},
+            {"field": "Teaching_Staff", "type": "quantitative", "format": ","},
+            {"field": "Total_Enrolments", "type": "quantitative", "format": ","}
+          ]
+        }
+      },
+      {
+        "mark": {
+          "type": "text",
+          "align": "right",
+          "baseline": "line-top",
+          "dx": -12,
+          "fontSize": 11.5,
+          "fontStyle": "italic"
+        },
+        "encoding": {
+          "text": {
+            "condition": {
+              "test": "datum['Suburb'] == 'Beaconsfield'",
+              "value": ["In 2022, St Francis Xavier ","College (Catholic School) has ","the highest number of ","teacher and students"]
+            },
+            
+            "field": "Suburb","type": "ordinal"},
+          "color": {"value": "black"},
+          "opacity": {
+            "condition": {
+              "test": "datum['Suburb'] == 'Beaconsfield'",
+              "value": 1
+            },
+            "value": 0
+          },
+          "tooltip": [
+            {"field": "Suburb", "type": "nominal"},
+            {"field": "School_Sector", "type": "nominal"},
+            {"field": "School_Name", "type": "nominal"},
+            {"field": "Teaching_Staff", "type": "quantitative", "format": ","},
+            {"field": "Total_Enrolments", "type": "quantitative", "format": ","}
+
+          ]
+        }
+      }
+    ]
+  }

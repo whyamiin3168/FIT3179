@@ -1,0 +1,62 @@
+{
+        
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Indigenous Enrolments Percentage across Greater Melbourne Suburbs",
+  "width": 400,
+  "height": 700,
+  "projection": {"type": "mercator"},
+  "data": {
+    "url": "../json/melbourne_area.json",
+    "format": {"type": "topojson", "feature": "vic_localities"}
+  },
+
+  "layer":[
+    {
+      "transform": [
+        {"calculate": "'Data is not available in ' + datum.properties.LOC_NAME", "as": "note"}
+      ],
+      "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"},
+      "encoding": {
+        "color": {
+          "field": "note",
+          "type": "nominal",
+          "legend": {
+            "title": "", 
+            "values": ["Data is not available ","in lightgray areas"], 
+            "orient": "bottom-right" 
+          }
+        },
+        "tooltip": {
+          "field": "note"
+          
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "lookup": "properties.LOC_NAME",
+          "from": {
+            "data": {
+              "url": "../data/melbourne_suburb_secondary_school_stats.csv"
+            },
+            "key": "Suburb",
+            "fields": ["Indigenous_Enrolments_(%)"]
+          }
+        }
+      ],
+      "mark": {"type": "geoshape", "stroke": "slategray"},
+      "encoding": {
+        "color": {
+          "field": "Indigenous_Enrolments_(%)",
+          "type": "quantitative"
+          
+        },
+        "tooltip": [
+          {"field": "properties.LOC_NAME", "type": "nominal", "title": "Suburb"},
+          {"field": "Indigenous_Enrolments_(%)", "type": "quantitative"}
+        ]
+      }
+    }
+  ]
+}
