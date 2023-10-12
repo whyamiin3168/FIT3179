@@ -1,0 +1,62 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Density of ICSEA Scores for Different School Sectors",
+    
+    "width": 500,
+    "height": 200,
+    "data": {
+      "url": "https://raw.githubusercontent.com/whyamiin3168/FIT3179/main/assignment2/data/melbourne_secondary_school_profiles.csv"
+    },
+    "transform": [
+      {
+        "density": "ICSEA",
+        "groupby": ["School_Sector"],
+        "extent": [700, 1500]  
+      },
+    {
+      "calculate": "datum.density * 100",  
+      "as": "densityPercentage"
+    }
+    ],
+    "mark": {
+      "type": "area",
+      "fillOpacity": 0.5
+    },
+    "encoding": {
+        
+      "x": {
+        "field": "value",
+        "type": "quantitative",
+        "title": "ICSEA score"
+      },
+      "y": {
+        "field": "densityPercentage",
+        "type": "quantitative",
+        "stack": "zero",
+        "axis": {
+            "title": "Density (%)"
+          }
+      },
+      "color": {
+        "field": "School_Sector",
+        "type": "nominal",
+        "scale": {"range": [
+            "#FF0000",
+            "#377eb8",
+            "#FFA500"
+          ]} 
+      },
+      "row": {
+      "field": "School_Sector",
+      "type": "nominal",
+      "title": "School Sector"
+    }
+    }
+  }
+
+  
+  
+  
+  
+  
+  

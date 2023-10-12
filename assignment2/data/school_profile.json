@@ -1,0 +1,46 @@
+{
+    "name": "School Sector",
+    "children": [
+      {
+        "name": "Catholic",
+        "children": [
+          {
+            "name": "Aberfeldie",
+            "children": [
+              { "name": "Ave Maria College" }
+            ]
+          },
+          {
+            "name": "Altona",
+            "children": [
+              { "name": "Mount St Joseph Girls' College" }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Government",
+        "children": [
+          {
+            "name": "Albert Park",
+            "children": [
+              { "name": "Albert Park College" }
+            ]
+          },
+          {
+            "name": "Altona North",
+            "children": [
+              { "name": "Emmanuel College" }
+            ]
+          },
+          {
+            "name": "Ashwood",
+            "children": [
+              { "name": "Ashwood High School" }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  
