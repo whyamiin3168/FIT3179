@@ -1,0 +1,173 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Though Vega-Lite supports only one scale per axes, one can create a parallel coordinate plot by folding variables, using `joinaggregate` to normalize their values and using ticks and rules to manually create axes.",
+  "data": {
+    "url": "https://raw.githubusercontent.com/whyamiin3168/FIT3179/main/assignment2/data/school_profile.json"
+  },
+
+  "params": [
+    {
+      "name": "School_sector_selection",
+      "bind": {
+        "input": "select",
+        "options": [
+          null,
+          "Catholic",
+          "Government",
+          "Independent"
+        ],
+        "labels": [
+          "Show All",
+          "Catholic",
+          "Government",
+          "Independent"
+        ],
+        "name": "School Sector Selection "
+      }
+    }
+  ],
+  
+  "width": 790,
+  "height": 400,
+  "transform": [
+    {"filter": "datum['ICSEA']"},
+    {
+      "filter": "School_sector_selection == null || datum['School Sector'] == School_sector_selection"
+    },
+    {"window": [{"op": "count", "as": "index"}]},
+    {"fold": ["ICSEA", "ICSEA Percentile", "Teaching Staff", "Total Enrolments"]},
+    {
+      "joinaggregate": [
+        {"op": "min", "field": "value", "as": "min"},
+        {"op": "max", "field": "value", "as": "max"}
+      ],
+      "groupby": ["key"]
+    },
+    {
+      "calculate": "(datum.value - datum.min) / (datum.max-datum.min)",
+      "as": "norm_val"
+    },
+    {
+      "calculate": "floor((datum.min + datum.max) / 2)",
+      "as": "mid"
+    }
+  ],
+  
+  "layer": [{
+    "mark": {"type": "rule", "color": "#ccc"},
+    "encoding": {
+      "detail": {"aggregate": "count"},
+      "x": {"field": "key"}
+    }
+  }, {
+    "mark": "line",
+    
+    "encoding": {
+      
+      "color": {
+        "field": "School Sector",
+        "type": "nominal",
+        
+        "scale": {
+          "domain": [
+            "Catholic",
+            "Government",
+            "Independent"
+          ],
+          "range": [
+            "darkviolet",
+            "#6F8FAF",
+            "orange"
+            
+          ]
+        },
+        "legend": {
+          "labelFontSize": 11,
+          "titleFontSize": 12,
+          "symbolStrokeWidth": 10,
+          "orient": "top-right",
+          "titleAlign":"left",
+          "padding": -20,
+          "symbolOpacity": 2
+
+        }
+      },
+      "detail": {"type": "nominal", "field": "index"},
+      "opacity": {"value": 0.4},
+      "x": {"type": "nominal", "field": "key", "axis": {"labelFontSize": 13}},
+      "y": {"type": "quantitative", "field": "norm_val", "axis": null},
+      "tooltip": [{
+        "type": "nominal",
+        "field": "School Name"
+      },
+        {
+        "type": "quantitative",
+        "field": "ICSEA"
+      }, {
+        "type": "quantitative",
+        "field": "ICSEA Percentile"
+      }, {
+        "type": "quantitative",
+        "field": "Teaching Staff"
+      }, {
+        "type": "quantitative",
+        "field": "Total Enrolments"
+      }]
+    }
+  }, {
+    "encoding": {
+      "x": {"type": "nominal", "field": "key"},
+      "y": {"value": 0}
+    },
+    "layer": [{
+      "mark": {"type": "text", "style": "label"},
+      "encoding": {
+        "text": {"aggregate": "max", "field": "max"}
+      }
+    }, {
+      "mark": {"type": "tick", "style": "tick", "size": 8, "color": "#ccc"}
+    }]
+  }, {
+    "encoding": {
+      "x": {"type": "nominal", "field": "key"},
+      "y": {"value": 200}
+    },
+    "layer": [{
+      "mark": {"type": "text", "style": "label"},
+      "encoding": {
+        "text": {"aggregate": "min", "field": "mid"}
+      }
+    }, {
+      "mark": {"type": "tick", "style": "tick", "size": 8, "color": "#ccc"}
+    }]
+  }, {
+    "encoding": {
+      "x": {"type": "nominal", "field": "key"},
+      "y": {"value": 400}
+    },
+    "layer": [{
+      "mark": {"type": "text", "style": "label"},
+      "encoding": {
+        "text": {"aggregate": "min", "field": "min"}
+      }
+    }, {
+      "mark": {"type": "tick", "style": "tick", "size": 8, "color": "#ccc"}
+    }]
+  }],
+  "config": {
+    "axisX": {"domain": false, "labelAngle": 0, "tickColor": "#ccc", "title": null},
+    "view": {"stroke": null},
+    "style": {
+      "label": {"baseline": "middle", "align": "right", "dx": -5, "fontSize": 12},
+      "tick": {"orient": "horizontal"}
+    }
+    
+  }
+}
+
+  
+  
+  
+  
+  
+  
