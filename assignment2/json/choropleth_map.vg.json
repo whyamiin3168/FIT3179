@@ -1,0 +1,98 @@
+{
+        
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 770,
+  "height": 790,
+  "params": [
+    {
+        "name": "zoom_level",
+        "value": 30000,
+        "bind": {
+            "input": "range",
+            "min": 3500,
+            "max": 60000,
+            "step": 100,
+            "name": "Zoom: "
+        }
+    }
+],
+ 
+  "projection": {
+    "type": "mercator",
+    "center": { "expr": "[145, -37.95]" },
+    "scale": { "expr": "zoom_level" }
+  },
+  
+  "data": {
+    "url": "https://raw.githubusercontent.com/whyamiin3168/FIT3179/main/assignment2/json//melbourne_area.json",
+    "format": {"type": "topojson", "feature": "vic_localities"}
+  },
+
+  "layer":[
+    {
+      "transform": [
+        {"calculate": "'Data is not available in ' + datum.properties.LOC_NAME", "as": "note"}
+      ],
+      "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"},
+      "encoding": {
+        "color": {
+          "field": "note",
+          "type": "nominal",
+          
+          "legend": {
+            "title": "", 
+            "values": ["Data is not available ","in light gray areas"], 
+            "labelFontStyle": "italic",
+            "orient": "bottom-right",
+            "labelFontSize": 15,
+            "labelAlign": "right",
+            "titleFontSize": 15,
+            "symbolSize": 15
+          }
+        },
+        "tooltip": {
+          "field": "note"
+          
+        }
+      }
+    },
+    {
+      "transform": [
+        { 
+          
+          "lookup": "properties.LOC_NAME",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/whyamiin3168/FIT3179/main/assignment2/data/melbourne_suburb_secondary_school_stats.csv"
+            },
+            "key": "Suburb",
+            "fields": ["Indigenous_Enrolments_(%)"]
+          }
+        }
+      ],
+      "mark": {"type": "geoshape", "stroke": "slategray"},
+      "encoding": {
+        "color": {
+          "field": "Indigenous_Enrolments_(%)",
+          "type": "quantitative",
+          "scale": {
+            "type":"sequential",
+            
+            "range": ["#ffe4b2", "#ffc966", "#ffa500", "#cc8400","#996300"]},
+            "legend": {
+            "title": ["Indigenous","Enrolment Percentage"], 
+            "gradientLength": 230,
+            "titleFontSize": 15,
+            "orient": "bottom-left"
+           
+          }
+          
+        },
+        "tooltip": [
+          {"field": "properties.LOC_NAME", "type": "nominal", "title": "Suburb"},
+          {"field": "Indigenous_Enrolments_(%)", "type": "quantitative", "title": "Indigenous Enrolment Percentage"}
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 600,
+    "height": 480,
+    
+    "data": {
+      "url": "https://raw.githubusercontent.com/whyamiin3168/FIT3179/main/assignment2/data/melbourne_secondary_school_profiles.csv"
+    },
+    "params": [
+      {
+        "name": "School_sector_selection",
+        "bind": {
+          "input": "select",
+          "options": [
+            null,
+            "Catholic",
+            "Government",
+            "Independent"
+          ],
+          "labels": [
+            "Show All",
+            "Catholic",
+            "Government",
+            "Independent"
+          ],
+          "name": "School Sector Selection: "
+          
+        }
+      }
+    ],
+    "transform": [
+      {"filter": "datum.Teaching_Staff > 0"},
+      {"filter": "datum.Total_Enrolments > 0"},
+      {
+        "filter": "School_sector_selection == null || datum.School_Sector == School_sector_selection"
+      },
+      {
+        "calculate": "datum.Total_Enrolments / 10",
+        "as": "Enrolment in 10"
+      }
+    ],
+    "encoding": {
+      "x": {
+        "field": "Enrolment in 10",
+        "type": "quantitative",
+        "title": "Number of Students per 10s",
+        "axis" : {"labelFontSize": 11, "titleFontSize": 12}
+
+
+      },
+      "y": {
+        "field": "Teaching_Staff",
+        "type": "quantitative",
+        "title": "Number of Teachers",
+        "axis" : {"labelFontSize": 11, "titleFontSize": 12}
+
+      }
+    },
+    "layer": [
+      {
+        "mark": "circle",
+        "encoding": {
+          "color": {
+            "field": "School_Sector",
+            "type": "nominal",
+            "scale": {
+              "domain": [
+                "Catholic",
+                "Government",
+                "Independent"
+              ],
+              "range": [
+                "darkviolet",
+                "#6F8FAF",
+                "orange"
+              ]
+            },
+            "legend": {
+               
+              "title": "School Sector",
+              "titleFontSize": 12,
+              "labelFontSize": 11,
+              "orient": "left",
+              "symbolOpacity": 0.7
+             
+            }
+          },
+          "opacity": {"value": 0.6},
+          "tooltip": [
+            {"field": "Suburb", "type": "nominal"},
+            {"field": "School_Sector", "type": "nominal"},
+            {"field": "School_Name", "type": "nominal"},
+            {"field": "Teaching_Staff", "type": "quantitative", "format": ","},
+            {"field": "Total_Enrolments", "type": "quantitative", "format": ","}
+          ]
+        }
+      },
+      {
+        "mark": {
+          "type": "text",
+          "align": "right",
+          "baseline": "line-top",
+          "dx": -12,
+          "fontSize": 13.5,
+          "fontStyle": "italic"
+        },
+        "encoding": {
+          "text": {
+            "condition": {
+              "test": "datum['Suburb'] == 'Beaconsfield'",
+              "value": ["In 2022, St Francis Xavier ","College (Catholic School) has ","the highest number of ","teachers and students"]
+              
+            },
+            
+            "field": "Suburb","type": "ordinal"},
+          "color": {"value": "black"},
+          "opacity": {
+            "condition": {
+              "test": "datum['Suburb'] == 'Beaconsfield'",
+              "value": 1
+            },
+            "value": 0
+          },
+          "tooltip": [
+            {"field": "Suburb", "type": "nominal"},
+            {"field": "School_Sector", "type": "nominal"},
+            {"field": "School_Name", "type": "nominal"},
+            {"field": "Teaching_Staff", "type": "quantitative", "format": ","},
+            {"field": "Enrolment in 10", "type": "quantitative", "format": ","}
+
+          ]
+        }
+      }
+    ]
+  }
