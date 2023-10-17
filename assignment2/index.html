@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+
+  <script type="text/javascript">
+
+    var spec1 = "json/choropleth_map.vg.json";
+    
+    vegaEmbed('#map', spec1).then(function(result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+  </script>
+  
+  <script type="text/javascript">
+  
+    var spec2 = "json/interactive_scatterplot.vg.json";
+    
+    vegaEmbed('#scatterplot', spec2).then(function(result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+  </script>
+
+<script type="text/javascript">
+
+  var spec3 = "json/density.vg.json";
+  
+  vegaEmbed('#density', spec3).then(function(result) {
+    // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+  }).catch(console.error);
+</script>
+
+<script type="text/javascript">
+
+  var spec4 = "json/parallel_coordinate.vg.json";
+  
+  vegaEmbed('#parallel_coordinate', spec4).then(function(result) {
+    // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+  }).catch(console.error);
+</script>
+
+<script type="text/javascript">
+
+  var spec5 = "json/isotype_grid.vg.json";
+  
+  vegaEmbed('#isotype_grid', spec5).then(function(result) {
+    // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+  }).catch(console.error);
+</script>
+  
+  
+  <!-- CSS file -->
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css" media="all">
+  
+</head>
+<body>
+  <div class="outercontainer">
+    <div class="container">
+      <h1>Education Choices with Melbourne Secondary School Metrics (2022)</h1>
+      <hr class="divider">
+      <br>
+      <hr class="divider">
+      
+      <div class="container">
+        <p class="figure1-font">Figure 1: Distribution of Secondary Schools by Gender</p>
+        <div class="pure-g">
+
+          <div class="pure-u-1-2">
+            <div id="isotype_grid"></div>
+          </div>
+          
+          <div class="pure-u-1-2">
+            <p class="body-font">
+              In 2022, roughly 
+              <span style="color: #b38b6d; font-weight: bold; font-size: 22px;">85%</span> 
+              of all secondary schools are coeducational (schools of mixed genders)
+              while it is
+              <span style="color: #FF00FF; font-weight: bold; font-size: 22px;">11% </span>
+              for girls school and 
+              <span style="color: #0000FF; font-weight: bold; font-size: 22px;">only 4%</span> for boys school.
+              There exists diversity of choices but the choices of all boys school are lower than all girls.
+               
+               
+               <br>
+               <br>
+               In Figure 1,those percentages are shown in human figure
+               where 
+               <strong style="font-weight: bold; font-size: 19px;">
+                each coloured figure represents 1%</strong> of all secondary schools 
+               in a grid of 100 figures 
+               - giving 100 percent. 
+               Blue figure shows boys schools; pink figure shows girls school while taupe figure shows mixed gender schools.
+            </p>
+          </div>
+
+          
+        </div>
+      </div>
+      <hr class="divider">
+
+      
+        <p class="figure2-font">Figure 2: Density of ICSEA Scores</p>
+        <div class="pure-g">
+
+          <div class="pure-u-1-2">
+            <p class="body-font">
+              It is advised to compare schools with similar socio-educational
+              advantages for fair evaluation. Therefore,
+                <strong style="font-size: 19px; ">the Index of Community Socio-Educational Advantage (ICSEA) </strong>
+              comes into picture as a scale typically ranging 
+              <strong style="font-size: 19px; ">from 500 (extremely disadvantaged) to 1300 (utmost priviliged).</strong>
+              <br><br>ICSEA is based on
+              <strong style="font-size: 19px;">a calculation of factors in socio-educational advantage (SEA), 
+                school location remoteness, and percentage of Indigenous student enrolment</strong>. SEA alone 
+              includes parental occupation, school education, and non-school education.
+              <br>
+              
+              <br>
+              Through Figure 2,
+              <span style="color: darkviolet; font-weight: bold; font-size: 22px;"> catholic</span> schools are likely to score at
+              around 1060 while 
+              <span style="color: #6F8FAF; font-weight: bold; font-size: 22px;">government</span> & 
+              <span style="color: orange; font-weight: bold; font-size: 22px;">independent</span> secondary schools tends to score 970. This translates to
+              catholic schools having higher probability of better socio-educational advantage than the other sectors.
+            </p>
+          </div>
+          
+          <div class="pure-u-1-2">
+            <div id="density"></div>
+          </div>
+
+          
+        </div>
+        <br>
+        <hr class="divider">
+      
+
+      <div class="container">
+        <p class="figure1-font">Figure 3: Correlation of ICSEA Percentile with Teaching Staff</p>
+        <div id="parallel_coordinate"></div>
+        <div class="pure-g">
+          <div class="pure-u-1-2">
+            <p class="body-font">
+              <span style="font-weight: bold; font-size: 19px;">It is 
+                <span style="font-weight: bold; font-size: 20px; color: darkred;">IMPORTANT</span> that ICSEA should not be used as school performance rating</span> 
+              since 
+              calculation for ICSEA does not consider parents' income or school teaching resources.
+              This can be emphasised through comparing ICSEA percentile
+              (a ranking scale on Australian ICSEA) with number of teaching staff in Figure 3.
+              
+              <span style="font-weight: bold; font-size: 19px;">The crisscross of lines between ICSEA percentile and Number of Teaching Staff</span>
+
+            </p>
+  
+          </div>
+          <div class="pure-u-1-2">
+            <p class="body-font">
+
+              
+              <span style="font-weight: bold; font-size: 19px;">indicates mixed correlation</span> as there exists 
+              schools (mainly under government) with  
+              <span style="font-weight: bold; font-size: 19px;">low ICSEA 
+              percentile having more teaching staff than those with 
+              <span style="font-weight: bold; font-size: 20px; color: darkred;">HIGHER</span> ICSEA percentile</span>.
+              As with the rest, ICSEA scales uniformly to its percentile and so are the majority of cases
+              between number of teaching staff and total enrolments of students (its trend will be elaborated
+              more in Figure 4 below).
+            </p>
+  
+          </div>
+          
+        </div>
+        <hr class="divider">
+
+
+      
+        <p class="figure1-font">Figure 4: Teacher to Student ratio</p>
+        <div id="scatterplot"></div>
+        <div class="pure-g">
+        <div class="pure-u-1-2">
+          <p class="body-font">
+            As seen previously, majority of the relationship between total number of teaching staff and student enrolment
+            are proportional scale in horizontal lines. As calculated, 
+             Melbourne secondary schools have 
+            <span style="font-weight: bold; font-size: 19px;">roughly 10 students assigned to one teacher 
+          regardless of its sector</span>, according to Figure 4. 
+          This can be visualised in concentration
+          of dots, forming 
+          <span style="font-weight: bold; font-size: 19px;">an upward linear trend of 1:10</span>
+          . 
+          
+
+          
+        </p>
+
+        </div>
+        <div class="pure-u-1-2">
+          <p class="body-font">The trend of 1:10 is demonstrated through 
+             scaling number of teachers against number of 
+          students in groups of 10 with each dot representing a school. The ratio begins to diverge away from the trend at 2000 students. 
+           
+            Schools on all sectors have<span style="font-weight: bold; font-size: 19px;"> a fair share
+            on teaching staff number depending on number of student enrolment</span> and 
+            <span style="font-weight: bold; font-size: 20px; color: darkred;">NOT </span><span style="font-weight: bold; font-size: 21.5px;">its ICSEA score.</span></span>
+             
+
+
+          
+          
+          </p>
+
+        </div>
+        </div>
+
+        <hr class="divider">
+      
+
+      
+        <p class="figure1-font">Figure 5: Indigenous Students Enrolment Percentage</p>
+        <div id="map"></div>
+        <div class="pure-g">
+          <div class="pure-u-1-2">
+            <p class="body-font">
+             
+              With <a href="https://www.abs.gov.au/ausstats/abs@.nsf/Lookup/by%20Subject/2071.0~2016~Main%20Features~Aboriginal%20and%20Torres%20Strait%20Islander%20Population%20-%20Victoria~10002">0.5%</a> of Melbourne population belonging to Indigenous community, it is crucial to have good 
+              community support and cultural connection for indigenous children as part of their growth and identity. 
+              Hence, identifying suburbs with relatively high indigenous 
+              enrolment would be a key start in the selection process. In Figure 5 of the Greater Melbourne area, percentage of indigenous student enrolment
+              in secondary schools per suburb is coloured coded on a
+          </div>
+          <div class="pure-u-1-2">
+            <p class="body-font">
+              
+              
+               
+          gradient scale. Suburbs that are in light gray either have no secondary school or lack enrolment data.
+          Indigenous enrolment increases the further you are from the Central Business District (CBD).
+          
+          <span style="font-weight: bold; font-size: 19px;">
+          The suburb closest to CBD with enrolment percentage above 8% would be Kensington (9%)</span>.
+            </p>
+  
+          </div>
+          </div>
+        
+
+            
+      
+    </div>
+  </div>
+ 
+
+
+
+
+
+   
+
+
+
+</body>
+</html>
